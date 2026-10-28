@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff8fb">
+  <meta name="description" content="Bunny — anime dubbing creator and drawing artist. A little portfolio filled with voice, art, and imagination.">
+  <title>Bunny ♡ — Creative Portfolio</title>
+  <style>
+    :root{
+      --pink:#ff75b7;--pink-dark:#d94c91;--pink-pale:#ffe3f0;
+      --yellow:#ffe77a;--yellow-pale:#fff7cf;--white:#fff;
+      --paper:#fffafc;--ink:#352431;--muted:#806f7b;
+      --line:#f5d8e6;--shadow:0 20px 60px rgba(177,79,129,.12);
+      --glass:rgba(255,255,255,.76);--radius:26px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;scroll-padding-top:100px}
+    body{margin:0;background:radial-gradient(ellipse at 10% 5%,#ffe4f1 0,transparent 34%),radial-gradient(ellipse at 90% 28%,#fff1a9 0,transparent 31%),var(--paper);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;overflow-x:hidden}
+    a{color:inherit;text-decoration:none}
+    button{font:inherit}
+    button:focus-visible,a:focus-visible{outline:3px solid #e94f9b;outline-offset:4px}
+    .ambient{position:fixed;inset:0;pointer-events:none;z-index:-1;overflow:hidden}
+    .orb{position:absolute;width:280px;height:280px;border-radius:50%;filter:blur(55px);opacity:.34;animation:orbFloat 12s ease-in-out infinite alternate}
+    .orb.one{background:#ffb6d7;left:-130px;top:25%}.orb.two{background:#ffe77a;right:-140px;top:55%;animation-delay:-5s}
+    .nav{position:fixed;z-index:20;top:14px;left:50%;transform:translateX(-50%);width:min(1000px,calc(100% - 28px));display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px 10px 18px;background:rgba(255,255,255,.8);backdrop-filter:blur(18px);border:1px solid rgba(255,255,255,.9);border-radius:22px;box-shadow:0 10px 35px rgba(130,60,96,.09)}
+    .logo{font-size:1.2rem;font-weight:950;letter-spacing:-.06em}.logo span{color:var(--pink)}
+    .nav-links{display:flex;align-items:center;gap:4px}.nav-links a{padding:10px 13px;border-radius:14px;color:var(--muted);font-size:.9rem;font-weight:700;transition:.2s}.nav-links a:hover{background:var(--pink-pale);color:var(--pink-dark)}
+    .like-button{border:1px solid #f5c7dd;border-radius:15px;padding:10px 13px;background:#fff;color:var(--pink-dark);font-weight:800;cursor:pointer;box-shadow:0 5px 15px #c75a8c12;transition:transform .2s,background .2s;white-space:nowrap}
+    .like-button:hover{transform:translateY(-2px)}.like-button.is-liked{background:#ffe2ef;animation:pop .3s ease}
+    .hero{min-height:100svh;display:grid;place-items:center;padding:130px 24px 75px}
+    .hero-inner{width:min(1050px,100%);display:grid;grid-template-columns:1.08fr .92fr;align-items:center;gap:55px}
+    .badge{display:inline-flex;align-items:center;gap:9px;padding:10px 14px;background:#fff;border:1px solid var(--line);border-radius:100px;color:#a83e75;font-size:.82rem;font-weight:800;box-shadow:0 8px 24px #ce57910c}
+    .badge-dot{width:8px;height:8px;border-radius:50%;background:var(--pink);box-shadow:0 0 0 5px #ff75b725}
+    h1{font-size:clamp(4rem,8.8vw,7.3rem);line-height:.88;letter-spacing:-.09em;margin:25px 0 22px;font-weight:1000}
+    .gradient-text{background:linear-gradient(100deg,#ff65aa 8%,#e75c9c 55%,#c58a55 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .hero-copy>p{max-width:570px;color:var(--muted);font-size:clamp(1rem,1.7vw,1.15rem);line-height:1.85}
+    .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:14px 19px;border:0;border-radius:16px;font-weight:850;cursor:pointer;transition:transform .23s,box-shadow .23s}
+    .btn:hover{transform:translateY(-4px)}.btn-primary{background:linear-gradient(135deg,#ff86bf,#ffb3d4);color:#70234a;box-shadow:0 12px 26px #ef6aa933}.btn-secondary{background:#fff;border:1px solid var(--line);color:#9e3c70;box-shadow:0 8px 22px #a94d780d}
+    .hero-art{position:relative;min-height:430px;display:grid;place-items:center}
+    .portrait-frame{width:min(350px,78vw);aspect-ratio:4/5;padding:9px;border-radius:45% 45% 32% 32% / 35% 35% 25% 25%;background:linear-gradient(145deg,#fff 5%,#ff9dcb 54%,#ffe77a);box-shadow:0 30px 85px #d65b982c;position:relative;animation:float 5.5s ease-in-out infinite}
+    .portrait-frame::before{content:"";position:absolute;inset:-13px;border:1px dashed #f6a6cd;border-radius:inherit;animation:spin 36s linear infinite}
+    .portrait{width:100%;height:100%;display:block;object-fit:cover;border-radius:inherit;background:linear-gradient(145deg,#ffe7f2,#fff5c6)}
+    .portrait-fallback{display:none;width:100%;height:100%;border-radius:inherit;place-items:center;text-align:center;padding:25px;color:#9e3c70;background:linear-gradient(145deg,#fff0f7,#fff6ce);font-weight:800;line-height:1.8}
+    .butterfly{position:absolute;z-index:2;filter:drop-shadow(0 5px 8px #d95d9c35);user-select:none;animation:butterfly 4s ease-in-out infinite}
+    .bf-one{font-size:49px;left:0;top:10%}.bf-two{font-size:34px;right:1%;top:24%;animation-delay:-1.4s}.bf-three{font-size:28px;left:6%;bottom:8%;animation-delay:-2.1s}
+    .sparkle{position:absolute;color:#e9a0c4;font-size:30px;animation:twinkle 2.3s ease-in-out infinite}.sparkle.s1{right:12%;top:8%}.sparkle.s2{right:5%;bottom:13%;animation-delay:-1.1s}
+    .section{width:min(1000px,calc(100% - 40px));margin:0 auto;padding:78px 0}
+    .section-header{text-align:center;margin:0 auto 32px}.eyebrow{font-size:.75rem;text-transform:uppercase;letter-spacing:.19em;font-weight:950;color:var(--pink-dark)}
+    h2{font-size:clamp(2.2rem,5vw,3.6rem);letter-spacing:-.07em;line-height:1.05;margin:11px 0 13px}
+    .section-subtitle{max-width:640px;margin:0 auto;color:var(--muted);line-height:1.8}
+    .glass-card{background:var(--glass);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.95);border-radius:var(--radius);box-shadow:var(--shadow)}
+    .about-card{padding:clamp(25px,5vw,48px);font-size:1.02rem;color:#71616d;line-height:1.95}
+    .about-card strong{color:#b8407d}
+    .skills{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px}
+    .skill-card{padding:26px;background:#fff;border:1px solid var(--line);border-radius:23px;box-shadow:0 12px 30px #a44e7809;transition:transform .25s,box-shadow .25s}
+    .skill-card:hover{transform:translateY(-7px) rotate(-.4deg);box-shadow:0 20px 38px #d35c981b}
+    .skill-icon{width:55px;height:55px;display:grid;place-items:center;border-radius:18px;background:linear-gradient(135deg,var(--pink-pale),var(--yellow-pale));font-size:1.7rem}
+    .skill-card h3{margin:16px 0 8px;font-size:1.2rem}.skill-card p{margin:0;color:var(--muted);line-height:1.75}
+    .projects-top{text-align:center;margin-bottom:22px}
+    .projects-help{font-size:.9rem;color:var(--muted);margin:13px 0 0}
+    .posts-panel{display:none;margin-top:32px;animation:fadeUp .5s ease both}.posts-panel.is-open{display:block}
+    .posts-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px}
+    .post-card{background:#fff;border:1px solid var(--line);border-radius:21px;overflow:hidden;box-shadow:0 12px 30px #a44e780b;transition:transform .23s,box-shadow .23s}
+    .post-card:hover{transform:translateY(-5px);box-shadow:0 20px 38px #d35c9819}
+    .post-image{height:165px;display:grid;place-items:center;background:linear-gradient(135deg,#ffe3f0,#fff1ad);overflow:hidden}
+    .post-image img{width:100%;height:100%;object-fit:cover}.post-placeholder{font-size:2rem}
+    .post-content{padding:17px}.post-content h3{margin:0 0 9px;font-size:1.02rem;line-height:1.45}.post-content p{margin:0;color:var(--muted);font-size:.88rem;line-height:1.65}
+    .demo-project{display:block}
+    .demo-project.hidden{display:none}
+    .project-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:17px;margin-top:25px}
+    .project-tile{min-height:190px;padding:22px;border-radius:22px;border:1px solid #f5d8e6;background:linear-gradient(145deg,#fff,#fff8d9);display:flex;flex-direction:column;justify-content:space-between;transition:transform .25s}
+    .project-tile:nth-child(2){background:linear-gradient(145deg,#fff,#ffe5f1)}.project-tile:nth-child(3){background:linear-gradient(145deg,#fff,#fdf0ff)}
+    .project-tile:hover{transform:translateY(-5px)}.project-tile .tile-emoji{font-size:2rem}.project-tile h3{margin:15px 0 6px}.project-tile p{margin:0;color:var(--muted);font-size:.9rem;line-height:1.6}
+    .contact{padding:clamp(28px,5vw,52px);text-align:center;background:linear-gradient(125deg,#ffe5f1,#fff3b8);border:1px solid white;border-radius:30px;box-shadow:var(--shadow)}
+    .contact p{max-width:600px;margin:0 auto;color:var(--muted);line-height:1.8}
+    footer{text-align:center;padding:35px 18px 45px;color:#927f8b;font-size:.86rem}
+    .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}.reveal.visible{opacity:1;transform:translateY(0)}
+    .heart-float,.particle{position:fixed;z-index:100;pointer-events:none;animation:rise 1.1s ease-out forwards}
+    @keyframes float{0%,100%{transform:translateY(0) rotate(1deg)}50%{transform:translateY(-12px) rotate(-1deg)}}
+    @keyframes butterfly{0%,100%{transform:translate(0,0) rotate(-7deg)}50%{transform:translate(7px,-13px) rotate(8deg)}}
+    @keyframes twinkle{0%,100%{opacity:.45;transform:scale(.8)}50%{opacity:1;transform:scale(1.2)}}
+    @keyframes spin{to{transform:rotate(360deg)}}@keyframes pop{50%{transform:scale(1.12)}}
+    @keyframes rise{to{transform:translateY(-95px) rotate(20deg) scale(.75);opacity:0}}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes orbFloat{to{transform:translate(55px,-35px) scale(1.12)}}
+    @media(max-width:760px){.hero-inner{grid-template-columns:1fr;gap:12px;text-align:center}.hero-art{grid-row:1;min-height:350px}.portrait-frame{width:min(275px,68vw)}.hero-copy>p{margin-left:auto;margin-right:auto}.actions{justify-content:center}.skills{grid-template-columns:1fr}.posts-grid,.project-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.section{padding:58px 0}}
+    @media(max-width:480px){.nav{padding:8px 9px 8px 13px}.logo{font-size:1.05rem}.nav-links a{padding:8px 7px;font-size:.77rem}.nav-links a:nth-child(2){display:none}.like-button{padding:9px;font-size:.82rem}.hero{padding-top:115px}.hero-art{min-height:310px}.posts-grid,.project-grid{grid-template-columns:1fr}.post-image{height:190px}.section{width:calc(100% - 30px)}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}}
+  </style>
+</head>
+<body>
+  <div class="ambient" aria-hidden="true"><div class="orb one"></div><div class="orb two"></div></div>
+  <nav class="nav" aria-label="Main navigation">
+    <a class="logo" href="#home">bunny<span>♡</span></a>
+    <div class="nav-links"><a href="#about">About</a><a href="#skills">Skills</a><a href="#projects">Projects</a></div>
+    <button class="like-button" id="likeButton" type="button" aria-pressed="false">♡ <span id="likeText">Like</span> <span id="likeCount">0</span></button>
+  </nav>
+
+  <main id="home">
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <div class="badge"><span class="badge-dot"></span> A little world made with love</div>
+          <h1>Hi, I'm<br><span class="gradient-text">Bunny.</span></h1>
+          <p>Anime voices, dreamy sketches, and a heart full of imagination. I'm an anime dubbing creator and drawing artist who loves bringing characters and little ideas to life.</p>
+          <div class="actions"><a class="btn btn-primary" href="#about">Get to know me ✦</a><a class="btn btn-secondary" href="#projects">Explore my world ↓</a></div>
+        </div>
+        <div class="hero-art" aria-label="Bunny's profile image with butterfly decorations">
+          <span class="butterfly bf-one" aria-hidden="true">🦋</span><span class="butterfly bf-two" aria-hidden="true">🦋</span><span class="butterfly bf-three" aria-hidden="true">🦋</span><span class="sparkle s1" aria-hidden="true">✧</span><span class="sparkle s2" aria-hidden="true">✦</span>
+          <div class="portrait-frame">
+            <img class="portrait" id="portrait" src="https://imgyx.pages.dev/yVEDl" alt="Bunny's profile artwork">
+            <div class="portrait-fallback" id="portraitFallback">🦋<br>Your artwork goes here<br><small>Replace the image URL in index.html if needed.</small></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="about">
+      <header class="section-header"><div class="eyebrow">A little about me</div><h2>Creativity is my kind of magic ✨</h2></header>
+      <div class="about-card glass-card">
+        Hey, I'm <strong>Bunny!</strong> ♡ I love the worlds that anime creates — the emotions, the tiny details, and the characters who stay in your heart long after the story ends. Through anime dubbing, I enjoy giving characters a voice and adding my own feeling to every line. Through drawing, I turn imagination into something you can see. I'm always learning, experimenting, and finding new ways to make something that feels uniquely mine. This little corner of the internet is where my voice, art, and ideas come together. Thanks for stopping by and being part of my journey. 🌷
+      </div>
+    </section>
+
+    <section class="section reveal" id="skills">
+      <header class="section-header"><div class="eyebrow">What I love doing</div><h2>My creative side</h2><p class="section-subtitle">Two passions, one imaginative little universe.</p></header>
+      <div class="skills">
+        <article class="skill-card"><div class="skill-icon">🎙️</div><h3>Anime Dubbing Creator</h3><p>Giving anime moments a voice with emotion, expression, and my own creative touch.</p></article>
+        <article class="skill-card"><div class="skill-icon">🎨</div><h3>Drawing Artist</h3><p>Turning ideas, characters, and moods into sketches and art — one detail at a time.</p></article>
+      </div>
+    </section>
+
+    <section class="section reveal" id="projects">
+      <header class="section-header"><div class="eyebrow">Made by Bunny</div><h2>My little universe</h2><p class="section-subtitle">The portfolio is the first thing visitors see. Open the projects button to reveal project cards and any blog posts you connect later.</p></header>
+      <div class="projects-top">
+        <button class="btn btn-primary" id="projectsToggle" type="button" aria-expanded="false" aria-controls="projectsPanel">Show my projects ↗</button>
+        <p class="projects-help" id="projectsHelp">Just the portfolio for now — the projects stay tucked away until you open them. ♡</p>
+      </div>
+      <div class="posts-panel" id="projectsPanel">
+        <div class="project-grid">
+          <article class="project-tile"><div class="tile-emoji">🎙️</div><div><h3>Anime Voice Covers</h3><p>Voice experiments, character scenes, and dubbing clips.</p></div></article>
+          <article class="project-tile"><div class="tile-emoji">🖌️</div><div><h3>Sketchbook</h3><p>Drawings, character studies, and little creative experiments.</p></div></article>
+          <article class="project-tile"><div class="tile-emoji">🌷</div><div><h3>Coming Soon</h3><p>A space for new collaborations and creative projects.</p></div></article>
+        </div>
+        <!-- Optional: Add blog post cards here, or connect this section to a blog/CMS later. -->
+        <div class="section-header" style="margin-top:42px;margin-bottom:18px"><div class="eyebrow">Updates</div><h2 style="font-size:2rem">Latest posts</h2><p class="section-subtitle">These sample cards can be replaced with your real project links.</p></div>
+        <div class="posts-grid">
+          <a class="post-card" href="#skills"><div class="post-image"><span class="post-placeholder">🎧🦋</span></div><div class="post-content"><h3>My Anime Dubbing Journey</h3><p>A little introduction to the voices and characters I love.</p></div></a>
+          <a class="post-card" href="#skills"><div class="post-image"><span class="post-placeholder">🎨🌼</span></div><div class="post-content"><h3>Inside My Sketchbook</h3><p>A peek into my drawing process and artistic inspiration.</p></div></a>
+          <a class="post-card" href="#contact"><div class="post-image"><span class="post-placeholder">💌✨</span></div><div class="post-content"><h3>New Things Are Coming</h3><p>More art, voice projects, and creative surprises soon.</p></div></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="contact">
+      <div class="contact"><div class="eyebrow">Let's create something lovely</div><h2>Thanks for visiting! ♡</h2><p>Every voice, every sketch, every small idea is part of the journey. Stay curious, keep creating, and let a little imagination brighten your day.</p><div class="actions" style="justify-content:center"><a class="btn btn-primary" href="#home">Back to top ↑</a></div></div>
+    </section>
+  </main>
+  <footer>Made with ♡ by Bunny · Anime dubbing creator &amp; drawing artist</footer>
+
+  <script>
+    // Profile image fallback if the provided image host blocks direct embedding.
+    const portrait = document.getElementById('portrait');
+    const portraitFallback = document.getElementById('portraitFallback');
+    portrait.addEventListener('error', () => {
+      portrait.hidden = true;
+      portraitFallback.style.display = 'grid';
+    });
+
+    // Portfolio-only first view: reveal projects only when the visitor clicks.
+    const projectsToggle = document.getElementById('projectsToggle');
+    const projectsPanel = document.getElementById('projectsPanel');
+    const projectsHelp = document.getElementById('projectsHelp');
+    projectsToggle.addEventListener('click', () => {
+      const isOpen = projectsPanel.classList.toggle('is-open');
+      projectsToggle.setAttribute('aria-expanded', String(isOpen));
+      projectsToggle.innerHTML = isOpen ? 'Hide my projects ↑' : 'Show my projects ↗';
+      projectsHelp.textContent = isOpen
+        ? 'Here are my projects and updates. Thanks for having a look! ♡'
+        : 'Just the portfolio for now — the projects stay tucked away until you open them. ♡';
+      if (isOpen) setTimeout(() => projectsPanel.scrollIntoView({ behavior: 'smooth', block: 'start' }), 70);
+    });
+
+    // iOS-inspired like button. This demo count is stored in this browser only,
+    // not shared between visitors. Use a backend if you need a global counter.
+    const likeButton = document.getElementById('likeButton');
+    const likeText = document.getElementById('likeText');
+    const likeCount = document.getElementById('likeCount');
+    let likes = Number(localStorage.getItem('bunnyPortfolioLikes') || 0);
+    let liked = localStorage.getItem('bunnyPortfolioLiked') === 'yes';
+    likeCount.textContent = likes;
+    likeText.textContent = liked ? 'Liked' : 'Like';
+    likeButton.classList.toggle('is-liked', liked);
+    likeButton.setAttribute('aria-pressed', String(liked));
+    likeButton.addEventListener('click', () => {
+      liked = !liked;
+      likes = Math.max(0, likes + (liked ? 1 : -1));
+      localStorage.setItem('bunnyPortfolioLikes', String(likes));
+      localStorage.setItem('bunnyPortfolioLiked', liked ? 'yes' : 'no');
+      likeCount.textContent = likes;
+      likeText.textContent = liked ? 'Liked' : 'Like';
+      likeButton.classList.toggle('is-liked', liked);
+      likeButton.setAttribute('aria-pressed', String(liked));
+      const heart = document.createElement('span');
+      heart.className = 'heart-float';
+      heart.textContent = liked ? '💗' : '♡';
+      const rect = likeButton.getBoundingClientRect();
+      heart.style.left = `${rect.left + rect.width / 2}px`;
+      heart.style.top = `${rect.top}px`;
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 1200);
+    });
+
+    // Reveal sections as they enter the viewport.
+    const revealItems = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      revealItems.forEach(item => observer.observe(item));
+    } else {
+      revealItems.forEach(item => item.classList.add('visible'));
+    }
+
+    // Small butterfly/sparkle particles on occasional clicks.
+    document.addEventListener('click', event => {
+      if (Math.random() > 0.35 || event.target.closest('button, a')) return;
+      const particle = document.createElement('span');
+      particle.className = 'particle';
+      particle.textContent = Math.random() > 0.5 ? '🦋' : '✧';
+      particle.style.left = `${event.clientX}px`;
+      particle.style.top = `${event.clientY}px`;
+      particle.style.fontSize = `${13 + Math.random() * 14}px`;
+      document.body.appendChild(particle);
+      setTimeout(() => particle.remove(), 1500);
+    });
+  </script>
+</body>
+</html>
